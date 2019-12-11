@@ -166,8 +166,6 @@
         selector: td[valign="middle"] a:contains("VOSE")
         optional: true
         filters:
-          - name: re_replace
-            args: ["Shameless", " Shameless US "]
           - name: append
             args: " [English]"
           - name: re_replace
