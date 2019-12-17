@@ -106,6 +106,9 @@
             args: [ "=", -1 ]
       title:
         selector: td:nth-child(2) a:last-of-type
+        filters:
+          - name: re_replace
+            args: ["[PuyaSubs!]", " [Spanish] "]
       details:
         selector: td:nth-child(2) a:last-of-type
         attribute: href
