@@ -105,10 +105,14 @@
           - name: split
             args: [ "=", -1 ]
       title:
-        selector: td:nth-child(2) a:last-of-type
+        selector: td:nth-child(2) a:last-of-type a:contains("[PuyaSubs!]")
+        optional: true
         filters:
-          - name: re_replace
-            args: ["PuyaSubs!", " Spanish "]
+          - name: append
+            args: " [Spanish]"
+      title:
+        selector: td:nth-child(2) a:last-of-type a:not(:contains("[PuyaSubs!]"))
+        optional: true
       details:
         selector: td:nth-child(2) a:last-of-type
         attribute: href
