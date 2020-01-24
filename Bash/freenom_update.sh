@@ -7,6 +7,7 @@
 
 exec 3>&1 4>&2
 trap 'exec 2>&4 1>&3' 0 1 2 3
+mkdir -p ./freenom-updater/logs
 exec 1>>./freenom-updater/logs/freenom.log 2>&1
 
 # Everything below will go to the file 'freenom-log.log':
@@ -24,8 +25,7 @@ MaxFileSize=2048
 if [ $file_size -gt $MaxFileSize ];then
 
     timestamp=`date +%s`
-    mkdir -p ./freenom-updater/logs
-    mv ./freenom.log ./freenom-updater/logs/freenom.log.$(date +%m_%d_%H_%Y)
+    mv ./freenom-updater/freenom.log ./freenom-updater/logs/freenom.log.$(date +%m_%d_%H_%Y)
     touch ./freenom.log
 fi
 
