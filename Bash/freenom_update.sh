@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Github
-# https://github.com/vinanrra/Scripts-Linux
+# https://github.com/vinanrra/Scripts-Linux/blob/master/Bash/freenom_update.sh
 
 ### LOG
 
