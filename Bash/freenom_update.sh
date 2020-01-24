@@ -10,24 +10,10 @@ trap 'exec 2>&4 1>&3' 0 1 2 3
 mkdir -p ./freenom-updater/logs
 exec 1>>./freenom-updater/logs/freenom.log 2>&1
 
-# Everything below will go to the file 'freenom-log.log':
-### LOG
+# Everything below will go to the file 'PATH/TO/SCRIPT/freenom-updater/logs/freenom.log':
 
 # Store date to variable
 now=$(date)
-
-# Get log size
-file_size=`du -b ./freenom-updater/freenom.log | tr -s '\t' ' ' | cut -d' ' -f1`
-
-# Check log size and if its bigget than 2MB move to freenom-logs
-# If folder doesnt exist it will be created.
-MaxFileSize=2048
-if [ $file_size -gt $MaxFileSize ];then
-
-    timestamp=`date +%s`
-    mv ./freenom-updater/freenom.log ./freenom-updater/logs/freenom.log.$(date +%m_%d_%H_%Y)
-    touch ./freenom.log
-fi
 
 # Get IP and store to file
 dig +short myip.opendns.com @resolver1.opendns.com > ./freenom-updater/ip.txt
@@ -52,7 +38,7 @@ if [ "$myip" == "$newip" ];then
     echo IPs are equal, the update isnt need it.
     echo $now
     echo ----------------------------------------------------------
-    
+
     else
 
    # Execute freenom-dns to update DNS with new IP
@@ -76,5 +62,17 @@ if [ "$myip" == "$newip" ];then
    freenom-dns set SUBDOMAIN.DOMAIN.tk A $myip
    echo $now
    echo ----------------------------------------------------------
-   
+
+fi
+
+# Get log size
+file_size=`du -b ./freenom-updater/logs/freenom.log | tr -s '\t' ' ' | cut -d' ' -f1`
+
+# Check log size and if its bigget than 2MB move to freenom-logs
+# If folder doesnt exist it will be created.
+MaxFileSize=2048
+if [ $file_size -gt $MaxFileSize ];then
+    timestamp=`date +%s`
+    mv ./freenom-updater/logs/freenom.log ./freenom-updater/logs/freenom.log.$(date +%m_%d_%H_%Y)
+    touch ./freenom-updater/logs/freenom.log
 fi
